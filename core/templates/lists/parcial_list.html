@@ -1,0 +1,24 @@
+{% for word in object_list %}
+    <tr>
+    <td>{{ word.word }}</td>
+    <td>{{ word.description }}</td>
+    {% if is_admin %}
+    <td>{{ word.user.username }}</td>
+    {% endif %}
+    <td>{{ word.created_at }}</td>
+    <td>
+        <div class="btn-group" role="group">
+            <a href="{% url 'edit-word' word.pk %}" class="btn btn-outline-light">
+                <i class="bi bi-pencil-fill"></i> Editar
+            </a>
+            <a href="{% url 'delete-word' word.pk %}" class="btn btn-outline-light">
+                <i class="bi bi-trash-fill"></i> Excluir
+            </a>
+        </div>
+    </td>
+    </tr>
+    {% empty %}
+    <tr>
+    <td colspan="3">Nenhuma Palavra registrada.</td>
+    </tr>
+{% endfor %}

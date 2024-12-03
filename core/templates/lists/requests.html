@@ -1,0 +1,75 @@
+{% extends 'modelo.html' %}
+{% load static %}
+{% block titulo %}
+<title>Palavras</title>
+{% endblock %}
+{% block conteudo %}
+<div class="container">
+    <h3>Lista de Solicitações</h3>
+    <a href="{% url 'request-word' %}" class="btn btn-primary btn-sm">Socilitar nova palavra</a>
+    <hr>
+    <div class="table-responsive">
+        <!--busca-->
+        <div>
+            <form action="?" method="GET">
+                <input type="text" name="word" class="p-1 border" value="{{ request.GET.word }}">
+                <button type="submit" class="btn btn-success">Buscar</button>
+                <a href="{% url 'list-requests' %}" class="btn btn-light">Limpar</a>
+            </form>
+        </div>
+        <table class="table table-striped" id="tabela-listar">
+            <thead>
+                <tr>
+                    <th>Palavra</th>
+                    <th>Criado por</th>
+                    <th>ùltima Atualização:</th>
+                    <th>Opções</th>
+                </tr> 
+            </thead>
+            <tbody>
+                {% for request in object_list %}
+                    <tr>
+                    <td>{{ request.word_req }}</td>
+                    <td>{{ request.user.username }}</td>
+                    <td>{{ request.created_at }}</td>
+                    <td>
+                        <a href="{% url 'delete-request' request.pk %}" class="btn btn-outline-light">
+                            <i class="bi bi-trash-fill"></i> Excluir
+                        </a>
+                    </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                    <td colspan="3">Nenhuma Palavra registrada.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal" id="modal-word">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+    
+        <!--Navegação da tabela-->
+        <div class="text-center">
+            <span>Página: {{page_obj.number}}</span>
+            <a href="?page=1" class="btn btn-primary">Primeira</a>
+            {% if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}" class="btn btn-primary">Anterior</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}" class="btn btn-primary">Próxima</a>
+            {% endif %}
+            <a href="?page={{page_obj.paginator.num_pages}}" class="btn btn-primary">Última</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/words.js' %}"></script>
+{% endblock %}

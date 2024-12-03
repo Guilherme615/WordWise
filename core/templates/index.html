@@ -1,0 +1,83 @@
+{% extends 'modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+  <title>Página Inicial</title>
+{% endblock %}
+
+{% block conteudo %}
+  <div class="words-wrapper" id="nav1bar"> <!-- Ajuste o valor conforme necessário -->
+    <div class="container">
+      <h2>Glossário</h2>
+    <!--busca-->
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <form action="?" method="GET">
+          <div class="input-group">
+            <input type="text" name="word" class="p-1 border" class="form-control" placeholder="Pesquisar palavras..." value="{{ request.GET.word }}">
+              <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+              <a href="{% url 'inicio' %}" class="btn btn-outline-secondary">Limpar</a>
+          </div>
+          
+            </form>
+          
+      </div>
+    </div>
+      
+      <div class="row">
+        {% for word in object_list %}
+          <div class="col-md-4 mb-4">
+            <div class="card" data-toggle="modal" data-target="#wordModal{{ word.id }}">
+              <div class="card-body">
+                <h5 class="card-title">{{ word.word }}</h5>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Modal -->
+          <div class="modal fade" id="wordModal{{ word.id }}" tabindex="-1" role="dialog" aria-labelledby="wordModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="wordModalLabel">{{ word.word }}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>{{ word.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <div class="col-md-12 text-center">
+            <p class="lead">Nenhuma palavra cadastrada.</p>
+          </div>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <a href="?page=1" class="btn btn-outline-light">
+      Primeira
+    </a>
+    {% if page_obj.has_previous %}
+    <a href="?page={{page_obj.previous_page_number}}" class="btn btn-outline-light">
+      Anterior
+      <i class="bi bi-arrow-left-circle-fill"></i>
+    </a>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <a href="?page={{page_obj.next_page_number}}" class="btn btn-outline-light">
+      <i class="bi bi-arrow-right-circle-fill"></i>
+      Próxima</a>
+    {% endif %}
+    <a href="?page={{page_obj.paginator.num_pages}}" class="btn btn-outline-light">Última</a>
+    <span>Página: {{page_obj.number}}</span>
+</div>
+
+  <!-- Adicione os scripts do Bootstrap no final da página, se ainda não estiverem incluídos -->
+  <!-- Exemplo de inclusão do Bootstrap via CDN (Certifique-se de substituir pela versão adequada): -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

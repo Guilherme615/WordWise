@@ -1,0 +1,44 @@
+{% block sidebar %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-vB6HhXBC1v7p7LNv2CTiP/jiztYEE+BI6Jh5k9GXMgJi7CI3UqXkFMScAAB+NM5Pgp5QlWZgwLBWdyOc5zQQCg==" crossorigin="anonymous" />
+<div class="container-fluid">
+    <div class="row">
+        <!-- Barra lateral -->
+        <div id="nav-bar">
+          <input id="nav-toggle" type="checkbox"/>
+          <div id="nav-header"><a id="nav-title" target="_blank">WordWise</a>
+            <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+            <hr/>
+          </div>
+          <div id="nav-content" >
+            <div class="nav-button text-center"><i class="fas fa-home"></i><a href="{% url 'inicio' %}"><span>Início</span></a></div>
+          {% if not user.is_authenticated %}
+            <div class="nav-button text-center"><i class="fas fa-user-plus" aria-hidden="true"></i><a href="{% url 'register' %}"><span>Registrar</span></a></div>
+          {% endif %}
+          {% if request.user.is_authenticated %}
+            <div class="nav-button text-center"><i class="fas fa-sign-out-alt"></i><a href="{% url 'logout' %}"><span>Logout</span></a></div>
+            <hr/>
+            <div class="nav-button text-center"><i class="fas fa-text-width"></i><a href="{% url 'list-words' %}"><span>Todas as Palavras</span></a></div>
+            <div class="nav-button text-center"><i class="fas fa-envelope"></i><a href="{% url 'list-requests' %}"><span>Solicitações</span></a></div>
+            <div class="nav-button text-center"><i class="fas fa-cog"></i><a href="{% url 'admin_page' %}"><span>Administração</span></a></div>
+          {% else %}
+            <div class="nav-button text-center"><i class="fas fa-sign-in-alt"></i><a href="{% url 'login' %}"><span>Login</span></a></div>
+            <hr/>
+          {% endif %}
+
+            <div id="nav-content-highlight"></div>
+          </div>
+          <input id="nav-footer-toggle" type="checkbox"/>
+          <div id="nav-footer">
+            <div id="nav-footer-heading">
+              <div id="nav-footer-avatar"><img src="/static/assets/user.png"/></div>
+              <div id="nav-footer-titlebox"><a id="nav-footer-title" target="_blank">{{ request.user }}</a><span id="nav-footer-subtitle">{{request.user.email}}</span></div>
+              <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+            </div>
+            <div id="nav-footer-content">
+              <Lorem></Lorem>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

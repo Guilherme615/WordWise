@@ -1,0 +1,21 @@
+{% extends 'modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Cadastro</title>
+{% endblock %}
+
+{% block conteudo %}
+<div class="container" style="text-align: center;">
+    <h3 class="Cadastro">Cadastro</h3>
+    <div class="solicitardiv">
+        <form action="" method="POST" class="solicitarfrom">
+            {% csrf_token %}
+            <p class="lead mensagem">Preencha todos os campos obrigatórios:</p>
+            <input type="text" name="palavra" placeholder="Digite sua palavra" class="solicitartext">
+            <br>
+            <button type="submit" class="btn btn-primary solicitarbutton">Solicitar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

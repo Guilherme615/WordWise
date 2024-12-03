@@ -1,0 +1,50 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/static/css/stylel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-96N7Fvoe+JOY3TtvEY6vv6dEm5TbRqihvtnflYHGOcRuEYaCOKD7YF0i4pXcc2m2Dv1oAefGhxYilCds/fYRrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="form-wrapper">
+        <div class="form-side">
+            <form class="my-form" method="post">
+                <div class="form-welcome-row">
+                    <h1>Autenticação:</h1>
+                </div>
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Atenção:</strong> Usuário ou senha inválidos!
+                    </div>
+                {% endif %}
+                
+                <div class="text-field">
+                    <label for="username">Username:
+                        <i class="fas fa-user"></i>
+                        {{ form.username }}
+                    </label>
+                </div>
+                <div class="text-field">
+                    <label for="password">Password:
+                        <i class="fas fa-lock"></i>
+                        {{ form.password }}
+                    </label>
+                </div>
+                <button type="submit" class="my-form__button">Entrar</button>
+                <div class="my-form__actions">
+                    <a href="{% url 'register' %}" title="Registrar">Não tem uma conta? Faça agora!</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/static/js/"></script>
+</body>
+</html>

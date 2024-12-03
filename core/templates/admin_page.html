@@ -1,0 +1,35 @@
+{% extends 'modelo.html' %}
+
+{% block titulo %}
+    <title>Página de Administração</title>
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container">
+        <div class="text-center">
+            <h3>Página de Administração</h3>
+        </div>
+        <!-- Adicione o conteúdo específico da página de administração aqui -->
+        <div class="text-center admindiv">
+            <form method="post" action="{% url 'admin_page' %}" class="adminform">
+                {% csrf_token %}
+                
+                {{ form.non_field_errors }}
+                
+                <div class="form-group">
+                    <input type="text" class="form-control admintex" id="username" name="username" placeholder="Digite o nome de usuário">
+                    {% if form.username.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.username.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary adminbutton">Adicionar ao grupo Professor</button>
+            </form>
+            <div class="nav-button text-center">
+                <a href="{% url 'register' %}" class="btn btn-link"><i class="fas fa-sign-out-alt"></i> ADICIONAR USUÁRIO</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

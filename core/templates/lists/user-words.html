@@ -1,0 +1,25 @@
+{% extends 'modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Página Inicial</title>
+{% endblock %}
+
+{% block conteudo %}
+  <div class="container">
+    <h2>Lista de Palavras</h2>
+    <h1>Palavras Cadastradas</h1>
+    <ul>
+        {% for word in words %}
+            <li>
+                <strong>{{ word.word }}</strong>
+                <span class="description-hidden">{{ word.description }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+      {% empty %}
+        <p>Nenhuma palavra cadastrada.</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
